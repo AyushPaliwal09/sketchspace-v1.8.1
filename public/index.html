@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1e1e1e">
+  <meta name="description" content="SketchSpace — your private-first space for sketches, notes and collaborative diagrams.">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icons/sketchspace.svg" type="image/svg+xml">
+  <title>SketchSpace · Think visually</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Lilita+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css?v=20261028-v1810-emoji-body-portal">
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <header class="topbar" id="home-topbar">
+      <a class="brand" href="#" id="brand-home" aria-label="SketchSpace home">
+        <span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 22.8 21.7 8.1a3.5 3.5 0 0 1 5 5L12 27.8 5.5 29.5Z"/><path d="m18.8 11 5 5M5.5 29.5l7-1.7"/></svg></span>
+        <span><strong>SketchSpace</strong><small>Your ideas, in every direction.</small></span>
+      </a>
+      <div class="top-actions">
+        <span class="private-chip"><i></i> Local-first</span>
+        <button class="icon-button" id="theme-home" title="Toggle theme" aria-label="Toggle theme"></button>
+        <button class="button button-primary" id="create-note-top"><span class="button-plus">＋</span> New canvas</button>
+      </div>
+    </header>
+
+    <main id="dashboard" class="dashboard view">
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> A LITTLE SPACE FOR BIG IDEAS</div>
+          <h1>Think it.<br><em>Sketch it.</em></h1>
+          <p>A calm canvas for messy first thoughts, thoughtful diagrams, handwritten notes and ideas worth keeping.</p>
+          <div class="hero-actions"><button class="button button-primary button-large" id="create-note-hero">＋ Start a new canvas <span class="arrow-right">↗</span></button><button class="button button-quiet" id="join-from-home">↗ Join a room</button></div>
+          <div class="hero-footnote"><span class="tiny-lock">⌑</span> Your notes stay in this browser. No account required.</div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+          <div class="art-paper paper-back"><span class="paper-line"></span><span class="paper-line short"></span><span class="paper-box"></span></div>
+          <div class="art-paper paper-front"><div class="scribble-title">big ideas<br><i>start small</i></div><svg class="doodle" viewBox="0 0 200 125"><path d="M17 66 C39 20 63 110 87 61 S130 30 146 62"/><path d="M132 45 147 62 126 68"/><path d="M22 100 Q45 80 63 100 T101 100"/></svg><span class="art-star">✳</span><span class="art-dot"></span></div>
+          <div class="floating-tag tag-one">↗ system design</div><div class="floating-tag tag-two">✎ brain dump</div><div class="floating-tag tag-three">✳ just an idea</div>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <div class="section-heading"><div><div class="eyebrow muted-eyebrow">YOUR WORKSPACE</div><h2>Your canvases <span class="count-pill" id="note-count">0</span></h2><p>Every thought has a place to land.</p></div><div class="note-tools"><label class="search-box"><span class="search-symbol">⌕</span><input id="note-search" placeholder="Search canvases…" autocomplete="off"></label><label class="button button-secondary import-label" title="Import a SketchSpace project or compatible JSON file">↥ Import<input type="file" id="dashboard-import" accept=".json,.sketchspace,.excalidraw,application/json" hidden></label></div></div>
+        <div id="note-grid" class="note-grid"></div>
+        <div id="empty-state" class="empty-state"><div class="empty-illustration"><span>✳</span><i></i><b></b></div><h3>Your first blank page is waiting.</h3><p>Make a sketch, map out an idea, or drop in a screenshot to get started.</p><button class="button button-secondary" id="create-note-empty">＋ Make your first canvas</button></div>
+      </section>
+      <footer class="dashboard-footer"><span>SketchSpace <span class="footer-separator">/</span> made for thinking out loud</span><span><i class="online-dot"></i> Private notes live on this device</span></footer>
+    </main>
+
+    <section id="editor" class="editor view hidden">
+      <header class="editor-topbar">
+        <button class="back-home" id="back-home" type="button" title="Back to canvases" aria-label="Back to canvases"><span class="back-home-glyph" aria-hidden="true"></span></button>
+        <div class="editor-title-block"><input id="document-title" class="document-title" aria-label="Canvas title" value="Untitled canvas" maxlength="100"><div class="saved-status" id="saved-status"><i></i><span>Saved on this device</span></div></div>
+        <div class="editor-actions"><span id="room-status" class="room-status hidden"><i></i><b id="room-member-count">0</b> online</span><button id="collab-button" class="button button-secondary" title="Share a live room"><span class="people-icon">♧</span><span class="collab-button-text">Share room</span></button><button id="theme-editor" class="icon-button" title="Toggle light / dark theme" aria-label="Toggle theme"></button><div class="menu-wrap"><button id="export-menu-button" class="icon-button export-icon-button" title="Export or import" aria-label="Export or import"><span class="button-icon">⇧</span></button><div id="export-menu" class="pop-menu hidden"><button data-export="png"><span class="menu-entry-icon"></span><span>Export as PNG</span></button><button data-export="svg"><span class="menu-entry-icon"></span><span>Export as SVG</span></button><button data-export="pdf"><span class="menu-entry-icon"></span><span>Export as PDF…</span></button><button data-export="project"><span class="menu-entry-icon"></span><span>Editable project (.json)</span></button><div class="menu-divider"></div><label class="export-import-entry"><span class="menu-entry-icon"></span><span>Import project…</span><input type="file" id="editor-import" accept=".json,.sketchspace,.excalidraw,application/json" hidden></label></div></div><div class="menu-wrap"><button id="editor-more-button" class="icon-button more-icon-button" title="More canvas options" aria-label="More canvas options">···</button><div id="editor-more-menu" class="pop-menu hidden"><button id="toggle-inspector" class="menu-item"><span>▤</span><span>Layers & objects</span></button><button id="show-shortcuts" class="menu-item"><span>⌘</span><span>Keyboard shortcuts</span></button><button id="share-canvas-file" class="menu-item"><span>↗</span><span>Share canvas file…</span></button><button id="more-import" class="menu-item"><span>⇧</span><span>Import project…</span></button><button id="more-library" class="menu-item"><span>▦</span><span>Shape library</span></button><button id="more-mermaid" class="menu-item"><span>⌘</span><span>Mermaid diagram…</span></button><button id="more-code" class="menu-item"><span>{ }</span><span>Add code block</span></button><button id="more-frame" class="menu-item"><span>▣</span><span>Add frame</span></button><label class="menu-item grid-menu-row"><span>⠿</span><span>Show dotted grid</span><input id="menu-show-grid" type="checkbox" checked></label><div class="menu-divider"></div><button id="more-clear" class="menu-item danger-menu-item"><span>×</span><span>Clear canvas…</span></button><button id="more-delete-canvas" class="menu-item danger-menu-item"><span>▤</span><span>Delete this canvas…</span></button></div></div></div>
+      </header>
+      <div class="editor-main">
+        <aside class="tool-rail" aria-label="Drawing tools" role="toolbar">
+          <div class="tool-core-tools">
+            <button class="tool-btn canvas-lock-toggle" id="toggle-canvas-lock" data-icon="lock" type="button" title="Lock canvas editing" aria-label="Lock canvas editing" aria-pressed="false"><span class="tool-glyph"></span></button>
+            <div class="rail-divider lock-divider"></div>
+            <button class="tool-btn" data-tool="hand" data-shortcut="H" title="Pan canvas (H / Space)" aria-label="Pan canvas"><span class="tool-glyph"></span></button>
+            <button class="tool-btn active" data-tool="select" data-shortcut="V" title="Select and move (V)" aria-label="Select and move"><span class="tool-glyph"></span></button>
+            <div class="rail-divider"></div>
+            <button class="tool-btn" data-tool="rect" data-shortcut="R" title="Rectangle (R)" aria-label="Rectangle"><span class="tool-glyph"></span></button>
+            <button class="tool-btn" data-tool="diamond" data-shortcut="D" title="Diamond (D)" aria-label="Diamond"><span class="tool-glyph"></span></button>
+            <button class="tool-btn" data-tool="ellipse" data-shortcut="O" title="Ellipse (O)" aria-label="Ellipse"><span class="tool-glyph"></span></button>
+            <button class="tool-btn" data-tool="arrow" data-shortcut="A" title="Arrow (A)" aria-label="Arrow"><span class="tool-glyph"></span></button>
+            <button class="tool-btn" data-tool="line" data-shortcut="L" title="Line (L)" aria-label="Line"><span class="tool-glyph"></span></button>
+            <button class="tool-btn" data-tool="pen" data-shortcut="P" title="Pencil / handwriting (P)" aria-label="Pencil"><span class="tool-glyph"></span></button>
+            <button class="tool-btn" data-tool="text" data-shortcut="T" title="Text (T)" aria-label="Text"><span class="tool-glyph"></span></button>
+            <button class="tool-btn" data-tool="image" data-shortcut="I" id="image-tool" title="Insert image (I)" aria-label="Insert image"><span class="tool-glyph"></span></button>
+            <input type="file" id="image-file" accept="image/*" hidden>
+            <button class="tool-btn" data-tool="eraser" data-shortcut="E" title="Eraser (E)" aria-label="Eraser"><span class="tool-glyph"></span></button>
+            <button class="tool-btn library-tool-btn" id="tool-other-shapes" data-shortcut="S" type="button" title="Other shapes and icons" aria-label="Other shapes and icons"><span class="tool-glyph"></span><kbd class="tool-shortcut">S</kbd></button>
+            <div class="rail-divider"></div>
+            <div class="tools-more-wrap">
+              <button class="tool-btn tools-more-trigger" id="tools-more-button" type="button" title="More tools" aria-label="More tools" aria-expanded="false"><span class="tool-glyph"></span></button>
+              <div id="tools-more-menu" class="tools-overflow-menu hidden" role="menu" aria-label="More drawing tools">
+                <button type="button" class="tool-overflow-item" data-tool="sticky" id="tool-sticky" role="menuitem"><span class="tool-glyph"></span><span>Sticky note</span><kbd>N</kbd></button>
+                <button type="button" class="tool-overflow-item" data-tool="frame" id="tool-frame" role="menuitem" aria-label="Draw frame"><span class="tool-glyph"></span><span>Frame tool</span><kbd>F</kbd></button>
+                <button type="button" class="tool-overflow-item" id="add-code" role="menuitem"><span class="tool-glyph"></span><span>Code block</span><kbd>K</kbd></button>
+                <button type="button" class="tool-overflow-item" id="add-mermaid" role="menuitem"><span class="tool-glyph"></span><span>Mermaid diagram</span><kbd>M</kbd></button>
+                <button type="button" class="tool-overflow-item" id="open-library" role="menuitem"><span class="tool-glyph"></span><span>Shape library</span></button>
+                <div class="tool-menu-divider"></div>
+                <button type="button" class="tool-overflow-item" id="tool-undo-menu" role="menuitem"><span class="tool-glyph"></span><span>Undo</span><kbd>Ctrl+Z</kbd></button>
+                <button type="button" class="tool-overflow-item" id="tool-redo-menu" role="menuitem"><span class="tool-glyph"></span><span>Redo</span><kbd>Ctrl+Y</kbd></button>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <main class="canvas-column">
+          <div class="canvas-hint"><span id="tool-hint">Double-click anywhere to type · choose a tool to draw</span><span class="canvas-hint-right">Drop images · paste screenshots · draw with touch or stylus</span></div>
+          <div class="canvas-viewport" id="canvas-viewport"><canvas id="drawing-canvas" aria-label="SketchSpace drawing canvas"></canvas><textarea id="canvas-text-editor" class="canvas-text-editor hidden" aria-label="Text on canvas" rows="1" spellcheck="false"></textarea><div id="text-format-toolbar" class="text-format-toolbar hidden" role="toolbar" aria-label="Text formatting"><select id="inline-font-family" title="Font family" aria-label="Font family"><optgroup label="SketchSpace fonts"><option value="Excalifont">SketchSpace · Hand-drawn</option><option value="Virgil">Virgil · Classic sketch</option><option value="Nunito">Nunito · Normal</option><option value="Lilita One">Lilita One · Display</option><option value="Comic Shanns">Comic Shanns · Code</option><option value="Cascadia">Cascadia · Code</option><option value="Cascadia Code">Cascadia Code · Code</option><option value="Helvetica">Helvetica · Sans</option><option value="Liberation Sans">Liberation Sans</option><option value="Assistant">Assistant · Sans</option></optgroup><optgroup label="Handwriting & system fonts"><option value="Comic Sans MS">Comic Sans MS</option><option value="Segoe Print">Segoe Print</option><option value="Bradley Hand">Bradley Hand</option><option value="Chalkboard">Chalkboard</option><option value="Trebuchet MS">Trebuchet</option><option value="Arial">Arial</option><option value="Georgia">Georgia</option><option value="Verdana">Verdana</option><option value="Courier New">Courier</option><option value="system-ui">System</option></optgroup></select><div class="font-size-control"><button id="font-size-down" type="button" title="Decrease font size">−</button><input id="font-size-input" type="number" min="8" max="96" value="22" title="Font size" aria-label="Font size"><button id="font-size-up" type="button" title="Increase font size">＋</button></div><button id="text-bold" type="button" title="Bold (Ctrl+B)" aria-label="Bold"><b>B</b></button><button id="text-italic" type="button" title="Italic (Ctrl+I)" aria-label="Italic"><i>I</i></button><input id="text-color-picker" type="color" value="#d4d4d4" title="Text color" aria-label="Text color"><button id="emoji-insert-button" type="button" title="Insert emoji" aria-label="Insert emoji"><span class="emoji-button-icon"></span></button><select id="inline-code-language" class="hidden" title="Code language" aria-label="Code language"><option>javascript</option><option>typescript</option><option>python</option><option>java</option><option>c</option><option>cpp</option><option>html</option><option>css</option><option>json</option><option>sql</option><option>bash</option><option>text</option></select></div><div id="selection-toolbar" class="selection-toolbar hidden" role="toolbar" aria-label="Selected object actions"><div id="path-style-quick" class="path-style-quick hidden" role="group" aria-label="Line and arrow bend style"><button type="button" data-path-style-quick="straight" title="Straight line" aria-label="Straight line"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18 20 6"/></svg></button><button type="button" data-path-style-quick="elbow" title="Bend / elbow" aria-label="Bend line or arrow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5v13h16"/></svg></button><button type="button" data-path-style-quick="curved" title="Curved line" aria-label="Curved line or arrow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18C8 2 16 2 20 6"/></svg></button></div><button type="button" data-selection-action="duplicate" title="Duplicate (Ctrl+D)" aria-label="Duplicate selected objects"><span class="action-icon"></span></button><button type="button" data-selection-action="delete" title="Delete (Delete)" aria-label="Delete selected objects"><span class="action-icon"></span></button><button type="button" id="selection-more-button" class="selection-more-button" title="More options" aria-label="More options"><span class="action-icon"></span></button><div id="selection-more-menu" class="selection-more-menu hidden"><button type="button" data-object-action="edit">Edit on canvas <kbd>Enter</kbd></button><button type="button" data-object-action="duplicate">Duplicate <kbd>Ctrl+D</kbd></button><button type="button" data-object-action="front">Bring forward</button><button type="button" data-object-action="back">Send backward</button><button type="button" data-object-action="lock">Lock / unlock</button><button type="button" data-object-action="library">Save to library</button><div class="menu-divider"></div><label>Stroke <input id="object-color" type="color" value="#d4d4d4"></label><label>Fill <select id="object-fill"><option value="none">None</option><option value="#dbeafe">Light blue</option><option value="#dcfce7">Mint</option><option value="#fef3c7">Butter</option><option value="#fee2e2">Rose</option><option value="#dbeafe">Sky</option><option value="#ffffff">White</option></select></label><label>Line width <input id="object-size" type="range" min="1" max="12" value="3"></label><label id="path-style-row">Arrow / line path <select id="object-path-style"><option value="straight">Straight</option><option value="elbow">Elbow / bend</option><option value="curved">Curved</option></select></label><label>Object name <input id="object-label" type="text" maxlength="80" placeholder="Name this element"></label></div></div><div id="drop-overlay" class="drop-overlay hidden"><span>＋</span><strong>Drop it on the canvas</strong><small>Images and text are supported</small></div><div id="cursor-layer" class="cursor-layer"></div><div id="toast" class="toast hidden" role="status"></div></div>
+          <div class="canvas-bottom-bar" aria-label="Canvas controls">
+            <div class="zoom-controls"><button id="zoom-out" title="Zoom out" aria-label="Zoom out">−</button><span id="zoom-value">100%</span><button id="zoom-in" title="Zoom in" aria-label="Zoom in">＋</button><button id="fit-canvas" title="Fit drawing" aria-label="Fit drawing">Fit</button></div>
+            <div class="bottom-divider"></div>
+            <button id="undo" class="bottom-icon-button" title="Undo (Ctrl+Z)" aria-label="Undo"><span class="action-icon"></span></button><button id="redo" class="bottom-icon-button" title="Redo (Ctrl+Y)" aria-label="Redo"><span class="action-icon"></span></button>
+            <div class="bottom-divider"></div>
+            <div class="bottom-group" aria-label="Ink color"><div id="color-swatches" class="color-swatches"></div><input id="custom-color" type="color" value="#d4d4d4" title="Custom ink color" aria-label="Custom ink color"></div>
+            <label class="canvas-bg-control" title="Canvas background color" aria-label="Canvas background color"><span>BG</span><input id="canvas-bg-color" type="color" value="#111111" aria-label="Canvas background color"></label><button id="canvas-bg-follow-theme" class="bottom-icon-button canvas-bg-follow-theme hidden" type="button" title="Use a canvas background that follows the light/dark theme" aria-label="Use a canvas background that follows the light/dark theme"><span class="action-icon"></span></button>
+            <label class="stroke-size" title="Stroke width"><input type="range" id="stroke-size" min="1" max="12" value="3" aria-label="Stroke width"><b id="stroke-value">3</b></label>
+            <span class="element-count" id="element-count">0 objects</span>
+          </div>
+        </main>
+
+        <aside class="inspector hidden" id="inspector">
+          <div class="inspector-tabs"><button class="inspector-tab active" data-inspector="properties">Properties</button><button class="inspector-tab" data-inspector="layers">Layers <span id="layer-count">0</span></button></div>
+          <div id="properties-panel" class="inspector-panel">
+            <section class="inspector-section"><div class="section-label">QUICK INSERT</div><div class="quick-grid"><button data-quick="text"><span>T</span><small>Text</small></button><button data-quick="sticky"><span>▧</span><small>Sticky</small></button><button data-quick="frame"><span>▣</span><small>Frame</small></button><button data-quick="image"><span>▧+</span><small>Image</small></button></div></section>
+            <section class="inspector-section" id="selection-section"><div class="section-title-row"><div class="section-label">SELECTION</div><span id="selection-type" class="type-pill">Nothing selected</span></div><p id="selection-empty" class="inspector-muted">Select an object on the canvas to edit it. Drag to move, use the corner handle to resize.</p><div id="selection-controls" class="hidden"><label class="control-label">Stroke color<input id="selected-color" type="color" value="#d4d4d4"></label><label class="control-label">Fill color<select id="selected-fill"><option value="none">Transparent</option><option value="#dbeafe">Light blue</option><option value="#dcfce7">Mint</option><option value="#fef3c7">Butter</option><option value="#fee2e2">Rose</option><option value="#dbeafe">Sky</option><option value="#ffffff">White</option></select></label><label class="control-label">Stroke width<input id="selected-size" type="range" min="1" max="12" value="3"></label><label class="control-label hidden" id="selected-path-style-row">Line / arrow style<select id="selected-path-style"><option value="straight">Straight</option><option value="elbow">Elbow / bend</option><option value="curved">Curved</option></select></label><label class="control-label">Object name<input id="selected-label" type="text" placeholder="Layer name"></label><div class="two-button-row"><button id="duplicate-object" class="button button-secondary">Duplicate</button><button id="delete-object" class="button button-danger">Delete</button></div><div class="two-button-row"><button id="send-back" class="button button-secondary">Send back</button><button id="bring-front" class="button button-secondary">Bring forward</button></div><label class="check-row"><input type="checkbox" id="lock-object"> Lock object from moving</label></div></section>
+            <section class="inspector-section"><div class="section-label">CANVAS</div><label class="check-row"><input type="checkbox" id="show-grid" checked> Show dotted grid</label><button id="clear-canvas" class="wide-quiet danger-quiet">Clear canvas…</button></section>
+            <section class="inspector-section"><div class="section-label">YOUR LIBRARY</div><p class="inspector-muted">Save selected objects and reuse them on any canvas.</p><button id="save-library" class="wide-quiet">＋ Save selected as reusable</button><button id="manage-library" class="wide-quiet">Browse saved library</button></section>
+            <section class="privacy-note"><i></i><div><strong>Saved on this device</strong><span>Your personal canvases never go to the collaboration server.</span></div></section>
+          </div>
+          <div id="layers-panel" class="inspector-panel hidden"><div class="layers-toolbar"><span>Back to front</span><button id="layer-sort" title="Reverse layer order">⇅ Reverse</button></div><div id="layer-list" class="layer-list"></div><div class="layer-help">Top items appear in front. Use ↑ and ↓ to change stacking order. Hidden and locked objects stay saved.</div></div>
+        </aside>
+      </div>
+    </section>
+  </div>
+
+  <div id="modal-root"></div>
+  <script src="/assets/icon-catalog.js?v=20261028-v1810-emoji-body-portal" defer></script>
+  <script src="/assets/ui-icons.js?v=20261028-v1810-emoji-body-portal" defer></script>
+  <script src="/app.js?v=20261028-v1810-emoji-body-portal" defer></script>
+</body>
+</html>

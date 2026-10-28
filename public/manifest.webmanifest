@@ -1,0 +1,30 @@
+{
+  "name": "SketchSpace \u2014 Visual Notes",
+  "short_name": "SketchSpace",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#1e1e1e",
+  "theme_color": "#1e1e1e",
+  "description": "A local-first, collaborative sketch and notes workspace.",
+  "icons": [
+    {
+      "src": "/icons/sketchspace-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/sketchspace-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/sketchspace.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
